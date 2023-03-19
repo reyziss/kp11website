@@ -6,6 +6,7 @@ import SimpleMDE from 'react-simplemde-editor';
 
 import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/slices/auth';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
@@ -108,29 +109,32 @@ export const AddPost = () => {
 
 
   return (
+
     <Paper style={{ padding: 30 }}>
+
+      {imageUrl && 
+      <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt ={`http://localhost:4444${imageUrl}`}/>
+      }
+
+      <div className={styles.ButtonsWrapper} >
+
+
+      
+      
       <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
         Загрузить превью
       </Button>
+
       <input 
         ref={inputFileRef} 
         type="file" 
         onChange={handleChangeFile}
         hidden 
       />
-      
-      {imageUrl && (
-        <>
-          <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-            Удалить
-          </Button>
-          <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt ={`http://localhost:4444${imageUrl}`}/>
-          <form action={`http://localhost:4444${imageUrl}`} >
-            <input type="submit" value="Скачать проект" size="medium" className={styles.margin}/>
-          </form>
-        </>
+
+        <Button variant="contained" color="error"  size="medium" endIcon={<DeleteIcon />} onClick={onClickRemoveImage}>  Удалить  </Button>
         
-      )}
+        </div>             
       <br />
       <br />
       
@@ -157,7 +161,7 @@ export const AddPost = () => {
           {isEditing ? 'Сохранить' : 'Опубликовать'}
         </Button>
         <a href="/">
-          <Button size="large">Отмена</Button>
+          <Button size="large"> Отмена </Button>
         </a>
       </div>
     </Paper>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 import clsx from 'clsx';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Clear';
+import DownloadIcon from '@mui/icons-material/Download';
 import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+
 
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
@@ -62,11 +65,23 @@ export const Post = ({
         />
         
       )} 
-      <form action={imageUrl}>
-            <input type="submit" value="Загрузить" size="medium" className={styles.margin}/>
-        </form>
+
+     
+
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+
+        <div className={styles.PostHeader}>
+
+          <UserInfo {...user} additionalText={createdAt} />
+
+        
+          <form action={imageUrl}>
+            <Button className={styles.DownloadButton} variant="outlined" type="submit" size="large" endIcon={<DownloadIcon />}> Скачать </Button>
+          </form>
+
+
+        </div>
+        
         <div className={styles.indention}>
           <h2 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
             {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}
@@ -83,10 +98,7 @@ export const Post = ({
               <EyeIcon />
               <span>{viewsCount}</span>
             </li>
-            <li>
-              <CommentIcon />
-              <span>{commentsCount}</span>
-            </li>
+           
           </ul>
         </div>
       </div>
