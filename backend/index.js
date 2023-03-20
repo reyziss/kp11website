@@ -12,7 +12,10 @@ import { handleValidationErrors, checkAuth } from './utils/index.js';
 import { UserController, PostController } from './controllers/index.js';
 
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb+srv://admin:wwwwww@cluster0.mjtnknn.mongodb.net/blog?retryWrites=true&w=majority")
+mongoose
+  .connect(
+    'mongodb+srv://admin:wwwwww@cluster0.mjtnknn.mongodb.net/blog?retryWrites=true&w=majority',
+  )
   .then(() => console.log('DB ok'))
   .catch((err) => console.log('DB error', err));
 
@@ -40,7 +43,13 @@ app.post('/auth/login', loginValidation, handleValidationErrors, UserController.
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
+app.post('/upload-image', checkAuth, upload.single('image'), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file.originalname}`,
+  });
+});
+
+app.post('/upload-file', checkAuth, upload.single('file'), (req, res) => {
   res.json({
     url: `/uploads/${req.file.originalname}`,
   });

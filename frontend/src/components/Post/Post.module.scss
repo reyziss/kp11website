@@ -33,7 +33,6 @@ $blue: #4361ee;
 
   &Full {
     min-height: 300px;
-
   }
 }
 
@@ -163,13 +162,13 @@ $blue: #4361ee;
   margin-left: 60%;
   width: 30%;
   height: fit-content;
-  font-size: 60px;  
+  font-size: 60px;
 }
 
 .PostHeader {
   display: flex;
   justify-content: space-between;
-  margin: 0px 10px 0px 10px;
+  margin: 25px 10px 0px 10px;
 }
 
 .DownloadButton {

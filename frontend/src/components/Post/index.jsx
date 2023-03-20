@@ -10,7 +10,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 
-
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
@@ -21,6 +20,7 @@ export const Post = ({
   title,
   createdAt,
   imageUrl,
+  fileUrl,
   user,
   viewsCount,
   commentsCount,
@@ -30,7 +30,6 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
-
   const dispatch = useDispatch();
 
   if (isLoading) {
@@ -42,17 +41,17 @@ export const Post = ({
       dispatch(fetchRemovePost(id));
     }
   };
-
+  console.log(fileUrl);
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
         <div className={styles.editButtons}>
           <Link to={`/posts/${id}/edit`}>
-            <IconButton color="primary">
+            <IconButton color='primary'>
               <EditIcon />
             </IconButton>
           </Link>
-          <IconButton onClick={onClickRemove} color="secondary">
+          <IconButton onClick={onClickRemove} color='secondary'>
             <DeleteIcon />
           </IconButton>
         </div>
@@ -63,42 +62,43 @@ export const Post = ({
           src={imageUrl}
           alt={title}
         />
-        
-      )} 
-
-     
+      )}
 
       <div className={styles.wrapper}>
-
         <div className={styles.PostHeader}>
-
           <UserInfo {...user} additionalText={createdAt} />
 
-        
-          <form action={imageUrl}>
-            <Button className={styles.DownloadButton} variant="outlined" type="submit" size="large" endIcon={<DownloadIcon />}> Скачать </Button>
+          <form action={fileUrl}>
+            <Button
+              className={styles.DownloadButton}
+              variant='outlined'
+              type='submit'
+              size='large'
+              endIcon={<DownloadIcon />}>
+              {' '}
+              Скачать{' '}
+            </Button>
           </form>
-
-
         </div>
-        
+
         <div className={styles.indention}>
           <h2 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
             {isFullPost ? title : <Link to={`/posts/${id}`}>{title}</Link>}
           </h2>
           <ul className={styles.tags}>
             {tags.map((name) => (
-              <li key={name}><Link to={`/tag/${name}`}>#{name}</Link></li>
+              <li key={name}>
+                <Link to={`/tag/${name}`}>#{name}</Link>
+              </li>
             ))}
           </ul>
-          
+
           {children && <div className={styles.content}>{children}</div>}
           <ul className={styles.postDetails}>
             <li>
               <EyeIcon />
               <span>{viewsCount}</span>
             </li>
-           
           </ul>
         </div>
       </div>

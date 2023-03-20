@@ -110,6 +110,7 @@ export const create = async (req, res) => {
       title: req.body.title,
       text: req.body.text,
       imageUrl: req.body.imageUrl,
+      fileUrl: req.body.fileUrl,
       tags: req.body.tags.split(','),
       user: req.userId,
     });
@@ -137,6 +138,7 @@ export const update = async (req, res) => {
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
+        fileUrl: req.body.fileUrl,
         user: req.userId,
         tags: req.body.tags.split(','),
       },
